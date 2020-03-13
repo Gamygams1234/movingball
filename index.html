@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <canvas
+      id="myCanvas"
+      width="600"
+      height="400"
+      style="border:1px solid #000000;"
+    >
+    </canvas>
+
+    <script>
+      var canvas = document.querySelector("#myCanvas");
+      var context = canvas.getContext("2d");
+
+      // set variables
+      var xPos = 0;
+      var yPos = 0;
+      var ballSize = 50;
+      var velocity = 5;
+
+      circle(xPos, yPos, ballSize, true);
+      // writing function
+      function circle(x, y, radius, fillCircle) {
+        context.beginPath();
+        context.arc(x, y, radius, 0, Math.PI * 2, false);
+        if (fillCircle) {
+          context.fill();
+        } else {
+          context.stroke();
+        }
+      }
+      // move function
+      function move(e) {
+        if (e.keyCode == 100) {
+          xPos += velocity;
+        } else if (e.keyCode == 97) {
+          xPos -= velocity;
+        } else if (e.keyCode == 115) {
+          yPos += velocity;
+        } else if (e.keyCode == 119) {
+          yPos -= velocity;
+          // growing the ball
+        } else if (e.keyCode == 46) {
+          ballSize += 5;
+        } else if (e.keyCode == 44) {
+          ballSize -= 5;
+        } else if (e.keyCode == 50) {
+          velocity += 5;
+        } else if (e.keyCode == 49) {
+          velocity -= 5;
+          if (velocity < 0) {
+            velocity = 0;
+          }
+        }
+        canvas.width = canvas.width;
+        circle(xPos, yPos, ballSize, true);
+      }
+
+      document.onkeypress = move;
+    </script>
+  </body>
+</html>
